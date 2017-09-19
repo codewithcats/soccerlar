@@ -10,14 +10,16 @@ soccerlarModule.config([
     const leagues = {
       name: 'leagues',
       url: '/leagues',
+      controller: 'leagueListController',
       template: `
-      <section ng-controller="leagueListController">
+      <section>
         <div class="panel">
           <p class="panel-heading">
             Leagues
           </p>
           <a class="panel-block"
             ng-repeat="league in leagues track by league.identifier"
+            ng-click="onLeagueClick(league)"
           >
             {{league.name}}
           </a>
@@ -47,5 +49,9 @@ soccerlarModule.controller('leagueListController', [
       const leagues = response.data.data.leagues
       $scope.leagues = leagues
     })
+
+    $scope.onLeagueClick = (league) => {
+      console.debug('[leagueListController] league clicked', league)
+    }
   }
 ])
