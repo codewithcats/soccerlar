@@ -16,10 +16,18 @@ module.exports = {
     }),
     new webpack.HotModuleReplacementPlugin(),
   ],
+  module: {
+    rules: [
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader']
+      }
+    ]
+  },
   devtool: 'inline-source-map',
   devServer: {
     contentBase: dist,
-    hot: true
+    hot: false
   },
   output: {
     filename: 'app.js',

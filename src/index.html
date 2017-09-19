@@ -2,10 +2,21 @@
 <html>
   <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Soccerlar</title>
   </head>
   <body ng-app="soccerlar">
     <section ng-controller="leagueListController">
+      <div class="panel">
+        <p class="panel-heading">
+          Leagues
+        </p>
+        <a class="panel-block"
+          ng-repeat="league in leagues track by league.identifier"
+        >
+          {{league.name}}  
+        </a>
+      </div>
     </section>
   </body>
 </html>
