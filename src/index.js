@@ -41,6 +41,16 @@ soccerlarModule.config([
         <h4 class="subtitle is-4">
           {{league.nation}}
         </h4>
+        <div class="panel">
+          <p class="panel-heading">
+            Seasons
+          </p>
+          <a class="panel-block"
+            ng-repeat="season in seasons track by season.identifier"
+          >
+            {{season.name}}
+          </a>
+        </div>
       </section>
       `
     }
@@ -80,8 +90,9 @@ soccerlarModule.controller('leagueDetailController', [
   '$scope',
   '$stateParams',
   function($http, $scope, $stateParams) {
+    const slug = $stateParams.leagueSlug
     $http({
-      url: `https://sportsop-soccer-sports-open-data-v1.p.mashape.com/v1/leagues/${$stateParams.leagueSlug}`,
+      url: `https://sportsop-soccer-sports-open-data-v1.p.mashape.com/v1/leagues/${slug}`,
       headers: {
         'X-Mashape-Key': 'ZqAO9XW13qmshFt97YltTFOOGDjhp1dHh00jsnD8ztb0FcWmpG',
         'Accept': 'application/json'
@@ -89,6 +100,17 @@ soccerlarModule.controller('leagueDetailController', [
     })
     .then(response => {
       $scope.league = response.data.data.leagues[0]
+      return $http({
+        url: `https://sportsop-soccer-sports-open-data-v1.p.mashape.com/v1/leagues/${slug}/seasons`,
+        headers: {
+          'X-Mashape-Key': 'ZqAO9XW13qmshFt97YltTFOOGDjhp1dHh00jsnD8ztb0FcWmpG',
+          'Accept': 'application/json'
+        }
+      })
+    })
+    .then(response => {
+      console.debug('[leagueDetailController] seasons', response.data)
+      $scope.seasons = response.data.data.seasons
     })
   }
 ])
