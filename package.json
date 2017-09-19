@@ -9,9 +9,11 @@
   "devDependencies": {
     "clean-webpack-plugin": "^0.1.16",
     "html-webpack-plugin": "^2.30.1",
+    "serve": "^6.1.0",
     "webpack": "^3.6.0"
   },
   "scripts": {
-    "build": "webpack"
+    "build": "webpack",
+    "serve": "serve ./dist"
   }
 }
