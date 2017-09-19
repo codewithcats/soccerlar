@@ -1,3 +1,3 @@
 import angular from 'angular'
 
-console.debug(angular)
+const soccerlarModule = angular.module('soccerlar', [])
