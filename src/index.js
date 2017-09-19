@@ -5,6 +5,6 @@ const soccerlarModule = angular.module('soccerlar', [])
 soccerlarModule.controller('leagueListController', [
   '$http',
   function($http) {
-    console.debug('[leagueListController] init')
+    console.debug('[leagueListController] started')
   }
 ])

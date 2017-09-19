@@ -1,4 +1,5 @@
 const path = require('path')
+const webpack = require('webpack')
 const HtmlPlugin = require('html-webpack-plugin')
 const CleanPlugin = require('clean-webpack-plugin')
 
@@ -12,11 +13,13 @@ module.exports = {
     new HtmlPlugin({
       title: 'Soccerlar',
       template: path.resolve(src, 'index.html')
-    })
+    }),
+    new webpack.HotModuleReplacementPlugin(),
   ],
   devtool: 'inline-source-map',
   devServer: {
-    contentBase: dist
+    contentBase: dist,
+    hot: true
   },
   output: {
     filename: 'app.js',
