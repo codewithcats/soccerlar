@@ -47,6 +47,7 @@ soccerlarModule.config([
           </p>
           <a class="panel-block"
             ng-repeat="season in seasons track by season.identifier"
+            ng-click="onSeasonClick(season)"
           >
             {{season.name}}
           </a>
@@ -55,6 +56,16 @@ soccerlarModule.config([
       `
     }
     $stateProvider.state(leagueDetail)
+
+    const seasonDetail = {
+      name: 'seasonDetail',
+      url: '/league/{leagueSlug}/season/{seasonSlug}',
+      template: `
+      <section name="season-detail">
+      </section>
+      `
+    }
+    $stateProvider.state(seasonDetail)
 
     $urlRouterProvider.otherwise('/leagues')
   }
@@ -88,11 +99,11 @@ soccerlarModule.controller('leagueListController', [
 soccerlarModule.controller('leagueDetailController', [
   '$http',
   '$scope',
-  '$stateParams',
-  function($http, $scope, $stateParams) {
-    const slug = $stateParams.leagueSlug
+  '$state',
+  function($http, $scope, $state) {
+    const leagueSlug = $state.params.leagueSlug
     $http({
-      url: `https://sportsop-soccer-sports-open-data-v1.p.mashape.com/v1/leagues/${slug}`,
+      url: `https://sportsop-soccer-sports-open-data-v1.p.mashape.com/v1/leagues/${leagueSlug}`,
       headers: {
         'X-Mashape-Key': 'ZqAO9XW13qmshFt97YltTFOOGDjhp1dHh00jsnD8ztb0FcWmpG',
         'Accept': 'application/json'
@@ -101,7 +112,7 @@ soccerlarModule.controller('leagueDetailController', [
     .then(response => {
       $scope.league = response.data.data.leagues[0]
       return $http({
-        url: `https://sportsop-soccer-sports-open-data-v1.p.mashape.com/v1/leagues/${slug}/seasons`,
+        url: `https://sportsop-soccer-sports-open-data-v1.p.mashape.com/v1/leagues/${leagueSlug}/seasons`,
         headers: {
           'X-Mashape-Key': 'ZqAO9XW13qmshFt97YltTFOOGDjhp1dHh00jsnD8ztb0FcWmpG',
           'Accept': 'application/json'
@@ -109,8 +120,14 @@ soccerlarModule.controller('leagueDetailController', [
       })
     })
     .then(response => {
-      console.debug('[leagueDetailController] seasons', response.data)
       $scope.seasons = response.data.data.seasons
     })
+
+    $scope.onSeasonClick = (season) => {
+      $state.go('seasonDetail', {
+        leagueSlug: leagueSlug,
+        seasonSlug: season.season_slug
+      })
+    }
   }
 ])
