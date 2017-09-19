@@ -12,7 +12,7 @@ soccerlarModule.config([
       url: '/leagues',
       controller: 'leagueListController',
       template: `
-      <section>
+      <section name="leagues">
         <div class="panel">
           <p class="panel-heading">
             Leagues
@@ -27,8 +27,21 @@ soccerlarModule.config([
       </section>
       `
     }
-
     $stateProvider.state(leagues)
+
+    const leagueDetail = {
+      name: 'leagueDetail',
+      url: '/league/{leagueSlug}',
+      template: `
+      <section name="league-detail">
+        <h1 class="title is-1">
+          League: {{league.name}}
+        </h1>
+      </section>
+      `
+    }
+    $stateProvider.state(leagueDetail)
+
     $urlRouterProvider.otherwise('/leagues')
   }
 ])
@@ -36,7 +49,8 @@ soccerlarModule.config([
 soccerlarModule.controller('leagueListController', [
   '$http',
   '$scope',
-  function($http, $scope) {
+  '$state',
+  function($http, $scope, $state) {
     console.debug('[leagueListController] started')
     $http({
       url: 'https://sportsop-soccer-sports-open-data-v1.p.mashape.com/v1/leagues',
@@ -52,6 +66,9 @@ soccerlarModule.controller('leagueListController', [
 
     $scope.onLeagueClick = (league) => {
       console.debug('[leagueListController] league clicked', league)
+      $state.go('leagueDetail', {
+        leagueSlug: league.league_slug
+      })
     }
   }
 ])
