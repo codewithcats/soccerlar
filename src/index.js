@@ -101,7 +101,11 @@ soccerlarModule.controller('leagueListController', [
   '$http',
   '$scope',
   '$state',
-  function($http, $scope, $state) {
+  'store',
+  function($http, $scope, $state, store) {
+    store.dispatch({
+      type: 'NOOP'
+    })
     $http({
       url: 'https://sportsop-soccer-sports-open-data-v1.p.mashape.com/v1/leagues',
       headers: {
