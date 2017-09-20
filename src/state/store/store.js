@@ -2,7 +2,10 @@ import {
   createStore
 } from 'redux'
 
-const store = createStore(
-  // stupid reducer
-  state => state
-)
+export const storeFactory = [
+  function() {
+    return createStore(
+      state => state
+    )
+  }
+]
