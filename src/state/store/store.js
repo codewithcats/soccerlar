@@ -6,17 +6,19 @@ export const storeFactory = [
   function() {
     const reducer = (state, action) => {
       switch (action.type) {
-        case 'INC':
-          return {
-            count: state.count + 1
-          }
+        case 'LEAGUES':
+          const {payload: {leagues}} = action
+          return {...state, leagues}
         default:
           return state
       }
     }
+    const initialState = {
+      leagues: []
+    }
     return createStore(
       reducer,
-      { count: 0 },
+      initialState,
       window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
     )
   }

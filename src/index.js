@@ -105,14 +105,18 @@ soccerlarModule.controller('leagueListController', [
   'selectors',
   'store',
   function($http, $scope, $state, connect, selectors, store) {
-    connect($scope, selectors.count, count => {
-      console.debug('[leagueListController] count', count)
+    connect($scope, selectors.leagues, leagues => {
+      $scope.leagues = leagues
     })
 
     store.dispatch({
-      type: 'INC'
+      type: 'LEAGUES',
+      payload: {
+        leagues: []
+      }
     })
 
+    /*
     $http({
       url: 'https://sportsop-soccer-sports-open-data-v1.p.mashape.com/v1/leagues',
       headers: {
@@ -124,6 +128,7 @@ soccerlarModule.controller('leagueListController', [
       const leagues = response.data.data.leagues
       $scope.leagues = leagues
     })
+    */
   }
 ])
 
