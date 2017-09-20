@@ -1,9 +1,13 @@
 import {
-  createStore
+  createStore,
+  applyMiddleware,
+  compose
 } from 'redux'
+import createSagaMiddleware from 'redux-saga'
 
 export const storeFactory = [
-  function() {
+  'effects',
+  function(effects) {
     const reducer = (state, action) => {
       switch (action.type) {
         case 'LEAGUES':
@@ -13,13 +17,25 @@ export const storeFactory = [
           return state
       }
     }
+
     const initialState = {
       leagues: []
     }
-    return createStore(
+
+    const sagaMiddleware = createSagaMiddleware()
+    const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+      || compose
+
+    const store = createStore(
       reducer,
       initialState,
-      window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+      composeEnhancers(
+        applyMiddleware(sagaMiddleware)
+      )
     )
+
+    effects.forEach(fx => sagaMiddleware.run(fx))
+
+    return store
   }
 ]

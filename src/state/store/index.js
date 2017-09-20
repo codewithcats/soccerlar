@@ -1,11 +1,15 @@
 import angular from 'angular'
 
+import '../effects'
+
 import {storeFactory} from './store'
 import {selectorsFactory} from './selectors'
 import {connectFactory} from './connect'
 import {bindFactory} from './bind'
 
-const storeModule = angular.module('store', [])
+const storeModule = angular.module('store', [
+  'effects'
+])
 
 storeModule.factory('store', storeFactory)
 storeModule.factory('selectors', selectorsFactory)

@@ -7,7 +7,7 @@ const src = path.resolve(__dirname, 'src')
 const dist = path.resolve(__dirname, 'dist')
 
 module.exports = {
-  entry: path.resolve(src, 'index.js'),
+  entry: ['babel-polyfill', path.resolve(src, 'index.js')],
   plugins: [
     new CleanPlugin([dist]),
     new HtmlPlugin({
