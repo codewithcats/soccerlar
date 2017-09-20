@@ -103,14 +103,14 @@ soccerlarModule.controller('leagueListController', [
   '$state',
   'store',
   function($http, $scope, $state, store) {
-    $scope.$watch(() => store.getState(), state => {
+    $scope.$watch(() => store.getState().count, count => {
       console.debug(
-        '[leagueListController] current state',
-        state
+        '[leagueListController] count',
+        count
       )
     })
     store.dispatch({
-      type: 'NOOP'
+      type: 'INC'
     })
     $http({
       url: 'https://sportsop-soccer-sports-open-data-v1.p.mashape.com/v1/leagues',
