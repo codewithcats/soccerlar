@@ -108,29 +108,8 @@ soccerlarModule.controller('leagueListController', [
     bind($scope, selectors.leagues, 'leagues')
 
     store.dispatch({
-      type: 'LEAGUES',
-      payload: {
-        leagues: [{
-          identifier: '1',
-          league_slug: 'EPL',
-          name: 'Premier League'
-        }]
-      }
+      type: 'FETCH_LEAGUES',
     })
-
-    /*
-    $http({
-      url: 'https://sportsop-soccer-sports-open-data-v1.p.mashape.com/v1/leagues',
-      headers: {
-        'X-Mashape-Key': 'ZqAO9XW13qmshFt97YltTFOOGDjhp1dHh00jsnD8ztb0FcWmpG',
-        'Accept': 'application/json'
-      }
-    })
-    .then(response => {
-      const leagues = response.data.data.leagues
-      $scope.leagues = leagues
-    })
-    */
   }
 ])
 

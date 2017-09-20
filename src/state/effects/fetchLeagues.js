@@ -1,11 +1,16 @@
-import {take, call} from 'redux-saga/effects'
+import {take, call, put} from 'redux-saga/effects'
 
 export function fetchLeaguesEffect(api) {
   return function* () {
     while (true) {
-      yield take('LEAGUES')
+      yield take('FETCH_LEAGUES')
       const leagues = yield call(api.fetchLeagues)
-      console.debug('[fetchLeaguesEffect] leagues', leagues)
+      yield put({
+        type: 'LEAGUES',
+        payload: {
+          leagues
+        }
+      })
     }
   }
 }
