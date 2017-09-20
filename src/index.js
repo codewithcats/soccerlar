@@ -101,18 +101,20 @@ soccerlarModule.controller('leagueListController', [
   '$http',
   '$scope',
   '$state',
-  'connect',
+  'bind',
   'selectors',
   'store',
-  function($http, $scope, $state, connect, selectors, store) {
-    connect($scope, selectors.leagues, leagues => {
-      $scope.leagues = leagues
-    })
+  function($http, $scope, $state, bind, selectors, store) {
+    bind($scope, selectors.leagues, 'leagues')
 
     store.dispatch({
       type: 'LEAGUES',
       payload: {
-        leagues: []
+        leagues: [{
+          identifier: '1',
+          league_slug: 'EPL',
+          name: 'Premier League'
+        }]
       }
     })
 
