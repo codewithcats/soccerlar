@@ -19,7 +19,7 @@ soccerlarModule.config([
           </p>
           <a class="panel-block"
             ng-repeat="league in leagues track by league.identifier"
-            ng-click="onLeagueClick(league)"
+            ui-sref="leagueDetail({leagueSlug: league.league_slug})"
           >
             {{league.name}}
           </a>
@@ -47,7 +47,7 @@ soccerlarModule.config([
           </p>
           <a class="panel-block"
             ng-repeat="season in seasons track by season.identifier"
-            ng-click="onSeasonClick(season)"
+            ui-sref="seasonDetail({leagueSlug: league.league_slug, seasonSlug: season.season_slug})"
           >
             {{season.name}}
           </a>
@@ -87,12 +87,6 @@ soccerlarModule.controller('leagueListController', [
       const leagues = response.data.data.leagues
       $scope.leagues = leagues
     })
-
-    $scope.onLeagueClick = (league) => {
-      $state.go('leagueDetail', {
-        leagueSlug: league.league_slug
-      })
-    }
   }
 ])
 
@@ -122,12 +116,5 @@ soccerlarModule.controller('leagueDetailController', [
     .then(response => {
       $scope.seasons = response.data.data.seasons
     })
-
-    $scope.onSeasonClick = (season) => {
-      $state.go('seasonDetail', {
-        leagueSlug: leagueSlug,
-        seasonSlug: season.season_slug
-      })
-    }
   }
 ])
