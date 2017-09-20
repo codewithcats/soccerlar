@@ -2,7 +2,12 @@ import 'bulma/css/bulma.css'
 import 'angular-ui-router'
 import angular from 'angular'
 
-const soccerlarModule = angular.module('soccerlar', ['ui.router'])
+import './state/store'
+
+const soccerlarModule = angular.module('soccerlar', [
+  'ui.router',
+  'store'
+])
 
 soccerlarModule.config([
   '$stateProvider', '$urlRouterProvider',
