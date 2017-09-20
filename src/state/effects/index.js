@@ -1,13 +1,18 @@
 import angular from 'angular'
 
+import '../../api'
+
 import {fetchLeaguesEffect} from './fetchLeagues'
 
-const effectsModule = angular.module('effects', [])
+const effectsModule = angular.module('effects', [
+  'api'
+])
 
 effectsModule.factory('effects', [
-  function() {
+  'api',
+  function(api) {
     return [
-      fetchLeaguesEffect,
+      fetchLeaguesEffect(api),
     ]
   }
 ])
