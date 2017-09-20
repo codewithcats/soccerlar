@@ -101,9 +101,10 @@ soccerlarModule.controller('leagueListController', [
   '$http',
   '$scope',
   '$state',
+  'selectors',
   'store',
-  function($http, $scope, $state, store) {
-    $scope.$watch(() => store.getState().count, count => {
+  function($http, $scope, $state, selectors, store) {
+    $scope.$watch(() => selectors.count(store.getState()), count => {
       console.debug(
         '[leagueListController] count',
         count
