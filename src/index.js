@@ -103,6 +103,12 @@ soccerlarModule.controller('leagueListController', [
   '$state',
   'store',
   function($http, $scope, $state, store) {
+    $scope.$watch(() => store.getState(), state => {
+      console.debug(
+        '[leagueListController] current state',
+        state
+      )
+    })
     store.dispatch({
       type: 'NOOP'
     })
