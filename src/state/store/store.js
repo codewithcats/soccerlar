@@ -9,6 +9,7 @@ import R from 'ramda'
 const indexByLeagueSlug = R.indexBy(R.prop('league_slug'))
 const sortByNameAsc = R.sort(R.ascend(R.prop('name')))
 const sortByNameDesc = R.sort(R.descend(R.prop('name')))
+const leaguesToSlugs = R.map(R.prop('league_slug'))
 
 export const storeFactory = [
   'effects',
@@ -18,11 +19,11 @@ export const storeFactory = [
         case 'LEAGUES':
           const {payload: {leagues}} = action
           const slugToLeague = indexByLeagueSlug(leagues)
-          const ascSorted = sortByNameAsc(leagues)
-          const descSorted = sortByNameDesc(leagues)
+          const ascSorted = leaguesToSlugs(sortByNameAsc(leagues))
+          const descSorted = leaguesToSlugs(sortByNameDesc(leagues))
           return {
             ...state,
-            'slug<->leagues': slugToLeague,
+            'slug<->league': slugToLeague,
             sortedLeagues: {
               asc: ascSorted,
               desc: descSorted,

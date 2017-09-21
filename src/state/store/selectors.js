@@ -1,11 +1,23 @@
+import R from 'ramda'
+
 export const selectorsFactory = [
   function() {
     return {
       leaguesAsc(state) {
-        return state.sortedLeagues.asc
+        const slugs = state.sortedLeagues.asc
+        const leagues = state['slug<->league']
+        return R.map(
+          slug => leagues[slug],
+          slugs
+        )
       },
       leaguesDesc(state) {
-        return state.sortedLeagues.desc
+        const slugs = state.sortedLeagues.desc
+        const leagues = state['slug<->league']
+        return R.map(
+          slug => leagues[slug],
+          slugs
+        )
       }
     }
   }
