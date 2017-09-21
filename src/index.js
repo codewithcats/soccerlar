@@ -105,7 +105,7 @@ soccerlarModule.controller('leagueListController', [
   'selectors',
   'store',
   function($http, $scope, $state, bind, selectors, store) {
-    bind($scope, selectors.leagues, 'leagues')
+    bind($scope, selectors.leaguesAsc, 'leagues')
 
     store.dispatch({
       type: 'FETCH_LEAGUES',

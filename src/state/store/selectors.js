@@ -1,8 +1,11 @@
 export const selectorsFactory = [
   function() {
     return {
-      leagues(state) {
-        return state.leagues
+      leaguesAsc(state) {
+        return state.sortedLeagues.asc
+      },
+      leaguesDesc(state) {
+        return state.sortedLeagues.desc
       }
     }
   }

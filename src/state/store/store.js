@@ -7,6 +7,8 @@ import createSagaMiddleware from 'redux-saga'
 import R from 'ramda'
 
 const indexByLeagueSlug = R.indexBy(R.prop('league_slug'))
+const sortByNameAsc = R.sort(R.ascend(R.prop('name')))
+const sortByNameDesc = R.sort(R.descend(R.prop('name')))
 
 export const storeFactory = [
   'effects',
@@ -16,10 +18,15 @@ export const storeFactory = [
         case 'LEAGUES':
           const {payload: {leagues}} = action
           const slugToLeague = indexByLeagueSlug(leagues)
+          const ascSorted = sortByNameAsc(leagues)
+          const descSorted = sortByNameDesc(leagues)
           return {
             ...state,
-            leagues,
             'slug<->leagues': slugToLeague,
+            sortedLeagues: {
+              asc: ascSorted,
+              desc: descSorted,
+            }
           }
         default:
           return state
@@ -27,7 +34,11 @@ export const storeFactory = [
     }
 
     const initialState = {
-      leagues: []
+      'slug<->leagues': {},
+      sortedLeagues: {
+        asc: [],
+        desc: [],
+      }
     }
 
     const sagaMiddleware = createSagaMiddleware()
