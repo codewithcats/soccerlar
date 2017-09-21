@@ -8,6 +8,7 @@
     "angular-ui-router": "^1.0.3",
     "babel-polyfill": "^6.26.0",
     "bulma": "^0.5.3",
+    "ramda": "^0.24.1",
     "redux": "^3.7.2",
     "redux-saga": "^0.15.6"
   },

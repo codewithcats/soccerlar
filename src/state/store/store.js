@@ -4,6 +4,9 @@ import {
   compose
 } from 'redux'
 import createSagaMiddleware from 'redux-saga'
+import R from 'ramda'
+
+const indexByLeagueSlug = R.indexBy(R.prop('league_slug'))
 
 export const storeFactory = [
   'effects',
@@ -12,7 +15,12 @@ export const storeFactory = [
       switch (action.type) {
         case 'LEAGUES':
           const {payload: {leagues}} = action
-          return {...state, leagues}
+          const slugToLeague = indexByLeagueSlug(leagues)
+          return {
+            ...state,
+            leagues,
+            'slug<->leagues': slugToLeague,
+          }
         default:
           return state
       }
