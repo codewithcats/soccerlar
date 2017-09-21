@@ -1,24 +1,25 @@
 import R from 'ramda'
+import {createSelector} from 'reselect'
 
 export const selectorsFactory = [
   function() {
-    return {
-      leaguesAsc(state) {
-        const slugs = state.sortedLeagues.asc
-        const leagues = state['slug<->league']
-        return R.map(
-          slug => leagues[slug],
-          slugs
-        )
-      },
-      leaguesDesc(state) {
-        const slugs = state.sortedLeagues.desc
-        const leagues = state['slug<->league']
-        return R.map(
-          slug => leagues[slug],
-          slugs
-        )
+    const getSortedLeagues = state => state.sortedLeagues
+    const getSlugToLeague = state => state['slug<->league']
+    const getLeaguesAsc = createSelector(
+      [getSortedLeagues, getSlugToLeague],
+      (sortedLeagues, slugToLeague) => {
+        return R.map(slug => slugToLeague[slug], sortedLeagues.asc)
       }
+    )
+    const getLeaguesDesc = createSelector(
+      [getSortedLeagues, getSlugToLeague],
+      (sortedLeagues, slugToLeague) => {
+        return R.map(slug => slugToLeague[slug], sortedLeagues.desc)
+      }
+    )
+    return {
+      leaguesAsc: getLeaguesAsc,
+      leaguesDesc: getLeaguesDesc,
     }
   }
 ]

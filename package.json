@@ -10,7 +10,8 @@
     "bulma": "^0.5.3",
     "ramda": "^0.24.1",
     "redux": "^3.7.2",
-    "redux-saga": "^0.15.6"
+    "redux-saga": "^0.15.6",
+    "reselect": "^3.0.1"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
