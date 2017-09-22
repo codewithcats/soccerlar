@@ -105,32 +105,20 @@ soccerlarModule.controller('leagueListController', [
   '$http',
   '$scope',
   '$state',
+  'actions',
   'bind',
   'selectors',
-  'store',
-  function($http, $scope, $state, bind, selectors, store) {
+  function($http, $scope, $state, actions, bind, selectors) {
     bind($scope, selectors.leagues, 'leagues')
 
-    store.dispatch({
-      type: 'FETCH_LEAGUES',
-    })
+    actions.fetchLeagues()
 
     $scope.onAscClick = () => {
-      store.dispatch({
-        type: 'LEAGUES_ORDER',
-        payload: {
-          direction: 'asc'
-        }
-      })
+      actions.leaguesOrder('asc')
     }
 
     $scope.onDescClick = () => {
-      store.dispatch({
-        type: 'LEAGUES_ORDER',
-        payload: {
-          direction: 'desc'
-        }
-      })
+      actions.leaguesOrder('desc')
     }
   }
 ])
