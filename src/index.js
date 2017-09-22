@@ -20,7 +20,11 @@ soccerlarModule.config([
       <section name="leagues">
         <div class="panel">
           <p class="panel-heading">
-            Leagues
+            <span>Leagues</span>
+            <span class="button is-small"
+              ng-click="onAscClick()">ASC</span>
+            <span class="button is-small"
+              ng-click="onDescClick()">DESC</span>
           </p>
           <a class="panel-block"
             ng-repeat="league in leagues track by league.identifier"
@@ -110,6 +114,24 @@ soccerlarModule.controller('leagueListController', [
     store.dispatch({
       type: 'FETCH_LEAGUES',
     })
+
+    $scope.onAscClick = () => {
+      store.dispatch({
+        type: 'LEAGUES_ORDER',
+        payload: {
+          direction: 'asc'
+        }
+      })
+    }
+
+    $scope.onDescClick = () => {
+      store.dispatch({
+        type: 'LEAGUES_ORDER',
+        payload: {
+          direction: 'desc'
+        }
+      })
+    }
   }
 ])
 
