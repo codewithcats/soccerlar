@@ -29,6 +29,12 @@ export const storeFactory = [
               desc: descSorted,
             }
           }
+        case 'LEAGUES_ORDER':
+          const {payload: {direction}} = action
+          return {
+            ...state,
+            sorting: direction,
+          }
         default:
           return state
       }
@@ -36,6 +42,7 @@ export const storeFactory = [
 
     const initialState = {
       'slug<->leagues': {},
+      sorting: 'asc',
       sortedLeagues: {
         asc: [],
         desc: [],
